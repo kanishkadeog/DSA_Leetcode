@@ -4,25 +4,37 @@
  */
 var isValid = function(s) {
     const stack = [];
-    const map = {
+
+    const pairs = {
         ')': '(',
         ']': '[',
         '}': '{'
     };
 
-    for (let ch of s) {
+    for (let char of s) {
+
         // Opening bracket
-        if (ch === '(' || ch === '[' || ch === '{') {
-            stack.push(ch);
+        if (char === '(' || char === '[' || char === '{') {
+            stack.push(char);
         } 
         // Closing bracket
         else {
-            if (stack.length === 0) return false;
+            // No opening bracket to match
+            if (stack.length === 0) {
+                return false;
+            }
 
-            const top = stack.pop();
-            if (top !== map[ch]) return false;
+            // Top opening bracket must match
+            if (stack.pop() !== pairs[char]) {
+                return false;
+            }
         }
     }
 
+    // All opening brackets must have been closed
     return stack.length === 0;
 };
+
+// Synced seamlessly with LeetHub Pro
+// Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+// Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
