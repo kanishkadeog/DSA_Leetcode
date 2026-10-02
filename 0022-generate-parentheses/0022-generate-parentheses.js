@@ -1,28 +1,33 @@
-/**
- * @param {number} n
- * @return {string[]}
- */
+ /**
+  * @param {number} n
+  * @return {string[]}
+  */
 var generateParenthesis = function(n) {
-    let result = [];
+    const result = [];
 
-    function backtrack(curr, open, close) {
-        // If the string is complete
-        if (curr.length === 2 * n) {
-            result.push(curr);
+    function backtrack(str, open, close) {
+        // We have used all n pairs
+        if (str.length === 2 * n) {
+            result.push(str);
             return;
         }
 
-        // Add '(' if possible
+        // We can add '(' if we haven't used all opening brackets
         if (open < n) {
-            backtrack(curr + "(", open + 1, close);
+            backtrack(str + "(", open + 1, close);
         }
 
-        // Add ')' if valid
+        // We can add ')' only if there is an unmatched '('
         if (close < open) {
-            backtrack(curr + ")", open, close + 1);
+            backtrack(str + ")", open, close + 1);
         }
     }
 
     backtrack("", 0, 0);
+
     return result;
 };
+
+// Synced seamlessly with LeetHub Pro
+// Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+// Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
